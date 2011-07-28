@@ -19,7 +19,7 @@ on how to use this gem with MongoID [here](http://github.com/crowdint/rails3-jqu
 
 ## MongoMapper
 
-TODO
+TODO: DONE???
 
 ## Before you start
 
@@ -153,11 +153,18 @@ Only the object's id and the column you are searching on will be returned in JSO
 
 #### :scopes
   Added option to use scopes. Pass scopes in an array.
+  The scope will receive the search `term` as parameter.
   e.g `:scopes => [:scope1, :scope2]`
 
 #### :column_name
    By default autocomplete uses method name as column name. Now it can be specified using column_name options
    `:column_name => 'name'`
+
+#### :full_model
+   ?????
+
+#### :limit
+   Limits the result. Default: 10. Use `0` to ignore the limit.
 
 #### json encoder
 Autocomplete uses Yajl as JSON encoder/decoder, but you can specify your own
