@@ -20,11 +20,12 @@ module Rails3JQueryAutocomplete
 
         items = model.scoped
 
-        scopes.each { |scope| items = items.send(scope) } unless scopes.empty?
+        scopes.each { |scope| items = items.send(scope, term) } unless scopes.empty?
 
         items = items.select(get_autocomplete_select_clause(model, method, options)) unless options[:full_model]
-        items = items.where(get_autocomplete_where_clause(model, term, method, options)).
-            limit(limit).order(order)
+        items = items.where(get_autocomplete_where_clause(model, term, method, options))
+        items = items.limit(limit) if limit > 0
+        items = items.order(order)
       end
 
       def get_autocomplete_select_clause(model, method, options)

@@ -22,8 +22,16 @@ module Rails3JQueryAutocomplete
         limit          = get_autocomplete_limit(options)
         order          = get_autocomplete_order(method, options)
 
+        items = model.scoped
+        scopes.each { |scope| items = items.send(scope, term) } unless scopes.empty?
+
         search = (is_full_search ? '.*' : '^') + term + '.*'
-				items  = model.where(method.to_sym => /#{search}/i).limit(limit).sort(order)
+        if limit > 0
+				  items  = items.where(method.to_sym => /#{search}/i).limit(limit).sort(order)
+				else
+				  items  = items.where(method.to_sym => /#{search}/i).sort(order)
+				end
+
 			end
 		end	
 	end
